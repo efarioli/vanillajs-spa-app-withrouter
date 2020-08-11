@@ -99,3 +99,19 @@ const createPostPerUserHeader = (user) => {
     div.children[0].replaceChild(createUserH2HTML(user), div.children[0].children[0]);
     return div
 }
+const createViewAllPostHeader = () => {
+    const div = document.createElement("div")
+    div.innerHTML = `
+    <div class="container">
+    <h2>All Post</h2>
+    <ul class="responsive-table" >
+    <li class="table-header">
+    <div class="col col-1v2">Post Id</div>
+    <div class="col col-2v2">Title</div>
+    <div class="col col-3v2">Body</div>
+    <div class="col col-4v2">User Id</div>
+  </li>
+    </ul>
+  </div>`
+    return div
+}
