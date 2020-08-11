@@ -178,3 +178,26 @@ async function doCreateViewPostsPerUser(routerView, userId) {
         console.log(err + " Problem loading the The posts per User from Api")
     }
 }
+async function doCreateAllPostsView(routerView) {
+    let div
+    try {
+  
+      const posts = await getAllPostDataFromApi()
+      console.log(posts)
+  
+      let fragment = document.createDocumentFragment()
+      posts.forEach(post => {
+        console.log(post)
+        fragment.appendChild(createLiPostExt(post))
+  
+      })
+      div = createViewAllPostHeader()
+      let ul = div.children[0].children[1]
+      ul.appendChild(fragment)
+  
+      routerView.innerHTML = div.innerHTML
+  
+    } catch (err) {
+      console.log(err + " Problem loading ALL The posts from Api")
+    }
+  }
