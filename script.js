@@ -136,3 +136,19 @@ const createLiPostExt = (post) => {
         <div class="col col-4v2" data-label="Post UserId">${post.userId}</div>`
     return li
 }
+
+async function doCreateUserView(routerView) {
+    try {
+        const users = await getAllUserFromApi()
+        routerView.innerHTML = ""
+
+        let articles = document.createDocumentFragment()
+        users.forEach(user => {
+            articles.appendChild(createUserArticleHTML(user))
+        })
+        routerView.appendChild(articles)
+
+    } catch (err) {
+        console.log(err)
+    }
+}
