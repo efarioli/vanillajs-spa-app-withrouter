@@ -125,3 +125,14 @@ const createLiPost = (post) => {
         <div class="col col-3" data-label="Post Body">${post.body}</div>`
     return li
 }
+
+const createLiPostExt = (post) => {
+    let li = document.createElement("li")
+    li.classList.add("table-row")
+    li.innerHTML =
+        `<div class="col col-1v2" data-label="Post Id">${post.id}</div>
+        <div class="col col-2v2" data-label="Title">${post.title}</div>
+        <div class="col col-3v2" data-label="Post Body">${post.body}</div>
+        <div class="col col-4v2" data-label="Post UserId">${post.userId}</div>`
+    return li
+}
