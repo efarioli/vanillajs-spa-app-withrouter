@@ -268,4 +268,24 @@ window.addEventListener("load", () => {
     onRouteChanged()
 })
 
+let anchors = document.querySelectorAll("a")
 
+anchors.forEach(element => {
+    //anchors or links
+    element.addEventListener("click", e => {
+        e.stopPropagation()
+        e.preventDefault()
+        let flag = window.location.href.toLowerCase().includes("index")
+
+        if (flag) {
+            history.pushState({
+                id: null
+            }, null, `http://${window.location.host}/` + e.target.hash);
+            onRouteChanged()
+
+        } else {
+            window.location.hash = e.target.hash.replace("#", "")
+        }
+
+    })
+})
