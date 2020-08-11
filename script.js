@@ -26,3 +26,15 @@ let getAllUserFromApi = () => {
         xhr.send()
     })
 }
+
+let getPostPerUserDataFromApi = (userId) => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest
+        xhr.responseType = "json"
+        xhr.open("GET", `${url}/posts?userId=${userId}`)
+        xhr.addEventListener("load", () => {
+            resolve(xhr.response)
+        })
+        xhr.send()
+    })
+}
