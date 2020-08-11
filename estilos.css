@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html , body {
+    height: 100vh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+body > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: seagreen;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    padding: 0.5rem 1rem;
+}
+
+body > header > nav a {
+    margin-left: 1rem;
+}
+
+body > main {
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+
+body footer {
+    background-color: rgb(20, 66, 40);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+}
