@@ -181,23 +181,73 @@ async function doCreateViewPostsPerUser(routerView, userId) {
 async function doCreateAllPostsView(routerView) {
     let div
     try {
-  
-      const posts = await getAllPostDataFromApi()
-      console.log(posts)
-  
-      let fragment = document.createDocumentFragment()
-      posts.forEach(post => {
-        console.log(post)
-        fragment.appendChild(createLiPostExt(post))
-  
-      })
-      div = createViewAllPostHeader()
-      let ul = div.children[0].children[1]
-      ul.appendChild(fragment)
-  
-      routerView.innerHTML = div.innerHTML
-  
+
+        const posts = await getAllPostDataFromApi()
+        console.log(posts)
+
+        let fragment = document.createDocumentFragment()
+        posts.forEach(post => {
+            console.log(post)
+            fragment.appendChild(createLiPostExt(post))
+
+        })
+        div = createViewAllPostHeader()
+        let ul = div.children[0].children[1]
+        ul.appendChild(fragment)
+
+        routerView.innerHTML = div.innerHTML
+
     } catch (err) {
-      console.log(err + " Problem loading ALL The posts from Api")
+        console.log(err + " Problem loading ALL The posts from Api")
     }
-  }
+}
+
+const onRouteChanged = () => {
+
+    window.location.href.replace("index.html", "")
+    console.log(window.location.href)
+
+    const hash = window.location.hash;
+    const routerView = document.querySelector("#router")
+
+    if (!(routerView instanceof HTMLElement)) {
+        throw new ReferenceError("No router view element available for rendering");
+    }
+
+    switch (hash) {
+        case "#home":
+            routerView.innerHTML = "<h1>Home page</h1>";
+            break
+
+        case "#usuarios":
+            doCreateUserView(routerView)
+            break
+        case "#posts":
+            doCreateAllPostsView(routerView)
+            break
+        case String(hash.match(/#posts\?userId=\d{1,}/g)):
+            doCreateViewPostsPerUser(routerView, hash.split('userId=')[hash.split('userId=').length - 1])
+            break
+        case "#contacto":
+            routerView.innerHTML = "<h1>Contacto</h1>";
+            break
+
+        default:
+            routerView.innerHTML = "<h1>404 - Page Not Found</h1>";
+            break;
+    }
+
+    const links = document.querySelectorAll(".link")
+    links.forEach(element => {
+        if (element.classList.contains("active")) element.classList.remove("active")
+    });
+    let hashIdForActive = hash.split("?")[0]
+
+    links.forEach((link) => {
+        if (`#${link.href.split("#")[link.href.split("#").length - 1]}` === hashIdForActive) {
+            link.classList.add("active")
+        }
+
+    })
+}
+
