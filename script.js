@@ -98,7 +98,6 @@ const createPostPerUserHeader = (user) => {
   </li>
     </ul>
   </div>`
-    console.dir(div.children[0].children[0])
     div.children[0].replaceChild(createUserH2HTML(user), div.children[0].children[0]);
     return div
 }
@@ -186,13 +185,10 @@ async function doCreateAllPostsView(routerView) {
     try {
 
         const posts = await getAllPostDataFromApi()
-        console.log(posts)
 
         let fragment = document.createDocumentFragment()
         posts.forEach(post => {
-            console.log(post)
             fragment.appendChild(createLiPostExt(post))
-
         })
         div = createViewAllPostHeader()
         let ul = div.children[0].children[1]
@@ -208,7 +204,6 @@ async function doCreateAllPostsView(routerView) {
 const onRouteChanged = () => {
 
     window.location.href.replace("index.html", "")
-    console.log(window.location.href)
 
     const hash = window.location.hash;
     const routerView = document.querySelector("#router")
@@ -258,16 +253,8 @@ window.addEventListener("hashchange", onRouteChanged)
 
 window.addEventListener('popstate', onRouteChanged)
 
-window.addEventListener('popstate', function(event) {
-    console.log('popstate fired!');
-  
-    updateContent(event.state);
-  });
-
-window.addEventListener("load", (e) => {
+window.addEventListener("load", () => {
     console.log("loadin....")
-    console.log(window.location.href)
-    console.log(`${window.location.origin}${prefixGithubPages}/index.html`)
 
     if (window.location.href == `${window.location.origin}/${prefixGithubPages}index.html`) {
         window.location.href = `${window.location.origin}/${prefixGithubPages}#home`
@@ -275,9 +262,7 @@ window.addEventListener("load", (e) => {
         history.pushState({
             id: null
         }, null, `${window.location.origin}/${prefixGithubPages}#home`);
-        // window.location.href = `${window.location.origin}/${prefixGithubPages}#home`
 
-        console.log(`${window.location.origin}${prefixGithubPages}/#home`)
 
     }
 
