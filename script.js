@@ -14,6 +14,9 @@
  */
 const url = "https://jsonplaceholder.typicode.com"
 
+const prefixGithubPages = `vanillajs-spa-app-withrouter/`
+// const prefixGithubPages = `javascript-router/`
+
 let getAllUserFromApi = () => {
     return new Promise((resolve, reject) => {
         const url = "https://jsonplaceholder.typicode.com"
@@ -70,7 +73,7 @@ const createUserArticleHTML = (user) => {
     article.innerHTML =
         `<img src="./pic/${user.id}.jpg" alt="">
    <h1>${user.name}</h1><h2>${user.email}</h2>
-   <a href="/#posts?userId=${user.id}">Ver Posteos de ${user.name} </a>`
+   <a href="/${prefixGithubPages}#posts?userId=${user.id}">Ver Posteos de ${user.name} </a>`
     return article;
 }
 
@@ -255,13 +258,26 @@ window.addEventListener("hashchange", onRouteChanged)
 
 window.addEventListener('popstate', onRouteChanged)
 
-window.addEventListener("load", () => {
+window.addEventListener('popstate', function(event) {
+    console.log('popstate fired!');
+  
+    updateContent(event.state);
+  });
+
+window.addEventListener("load", (e) => {
     console.log("loadin....")
-    if (window.location.href === `${window.location.origin}/index.html`) {
+    console.log(window.location.href)
+    console.log(`${window.location.origin}${prefixGithubPages}/index.html`)
+
+    if (window.location.href == `${window.location.origin}/${prefixGithubPages}index.html`) {
+        window.location.href = `${window.location.origin}/${prefixGithubPages}#home`
+
         history.pushState({
             id: null
-        }, null, `${window.location.origin}/#home`);
-        window.location.href = "#home"
+        }, null, `${window.location.origin}/${prefixGithubPages}#home`);
+        // window.location.href = `${window.location.origin}/${prefixGithubPages}#home`
+
+        console.log(`${window.location.origin}${prefixGithubPages}/#home`)
 
     }
 
@@ -280,7 +296,7 @@ anchors.forEach(element => {
         if (flag) {
             history.pushState({
                 id: null
-            }, null, `http://${window.location.host}/` + e.target.hash);
+            }, null, `https://${window.location.host}/${prefixGithubPages}` + e.target.hash);
             onRouteChanged()
 
         } else {
