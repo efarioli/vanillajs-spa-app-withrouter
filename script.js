@@ -13,3 +13,16 @@
  * Si el usuario vuelve para atras en el historial, deberia poder ver el contenido que le corresponde a la URL.
  */
 const url = "https://jsonplaceholder.typicode.com"
+
+let getAllUserFromApi = () => {
+    return new Promise((resolve, reject) => {
+        const url = "https://jsonplaceholder.typicode.com"
+        const xhr = new XMLHttpRequest
+        xhr.responseType = "json"
+        xhr.open("GET", `${url}/users`)
+        xhr.addEventListener("load", () => {
+            resolve(xhr.response)
+        })
+        xhr.send()
+    })
+}
