@@ -251,3 +251,9 @@ const onRouteChanged = () => {
     })
 }
 
+window.addEventListener("hashchange", onRouteChanged)
+
+window.addEventListener('popstate', onRouteChanged)
+
+window.addEventListener("load", onRouteChanged)
+
