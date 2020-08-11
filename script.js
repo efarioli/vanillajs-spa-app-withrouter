@@ -255,5 +255,17 @@ window.addEventListener("hashchange", onRouteChanged)
 
 window.addEventListener('popstate', onRouteChanged)
 
-window.addEventListener("load", onRouteChanged)
+window.addEventListener("load", () => {
+    console.log("loadin....")
+    if (window.location.href === `${window.location.origin}/index.html`) {
+        history.pushState({
+            id: null
+        }, null, `${window.location.origin}/#home`);
+        window.location.href = "#home"
+
+    }
+
+    onRouteChanged()
+})
+
 
