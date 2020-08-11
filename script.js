@@ -50,3 +50,15 @@ let getAllPostDataFromApi = () => {
         xhr.send()
     })
 }
+
+let getUserDataFromApi = (userId) => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest
+        xhr.responseType = "json"
+        xhr.open("GET", `${url}/users/${userId}`)
+        xhr.addEventListener("load", () => {
+            resolve(xhr.response)
+        })
+        xhr.send()
+    })
+}
