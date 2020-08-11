@@ -115,3 +115,13 @@ const createViewAllPostHeader = () => {
   </div>`
     return div
 }
+
+const createLiPost = (post) => {
+    let li = document.createElement("li")
+    li.classList.add("table-row")
+    li.innerHTML =
+        `<div class="col col-1" data-label="Post Id">${post.id}</div>
+        <div class="col col-2" data-label="Title">${post.title}</div>
+        <div class="col col-3" data-label="Post Body">${post.body}</div>`
+    return li
+}
