@@ -73,3 +73,11 @@ const createUserArticleHTML = (user) => {
    <a href="/#posts?userId=${user.id}">Ver Posteos de ${user.name} </a>`
     return article;
 }
+
+const createUserH2HTML = (user) => {
+    //create an H2 element that represents an user - Username and thumbnail picture
+    const h2 = document.createElement("h2")
+    h2.innerHTML =
+        `Posts for user: ${user.name}<span><img src="./pic/${user.id}.jpg"  alt=""/></span>`
+    return h2;
+}
