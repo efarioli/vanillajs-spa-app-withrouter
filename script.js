@@ -81,3 +81,21 @@ const createUserH2HTML = (user) => {
         `Posts for user: ${user.name}<span><img src="./pic/${user.id}.jpg"  alt=""/></span>`
     return h2;
 }
+
+const createPostPerUserHeader = (user) => {
+    const div = document.createElement("div")
+    div.innerHTML = `
+    <div class="container">
+    <h2>Posts for user <span><img src="./pic/1.jpg"  alt=""/></span></h2>
+    <ul class="responsive-table" id="rt">
+    <li class="table-header">
+    <div class="col col-1">Post Id</div>
+    <div class="col col-2">Title</div>
+    <div class="col col-3">Body</div>
+  </li>
+    </ul>
+  </div>`
+    console.dir(div.children[0].children[0])
+    div.children[0].replaceChild(createUserH2HTML(user), div.children[0].children[0]);
+    return div
+}
