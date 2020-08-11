@@ -62,3 +62,14 @@ let getUserDataFromApi = (userId) => {
         xhr.send()
     })
 }
+
+const createUserArticleHTML = (user) => {
+    //create an HTML element that represents an user
+    const article = document.createElement("article")
+    article.classList.add("card")
+    article.innerHTML =
+        `<img src="./pic/${user.id}.jpg" alt="">
+   <h1>${user.name}</h1><h2>${user.email}</h2>
+   <a href="/#posts?userId=${user.id}">Ver Posteos de ${user.name} </a>`
+    return article;
+}
