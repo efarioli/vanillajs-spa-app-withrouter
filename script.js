@@ -152,3 +152,29 @@ async function doCreateUserView(routerView) {
         console.log(err)
     }
 }
+
+async function doCreateViewPostsPerUser(routerView, userId) {
+    let div
+    try {
+        const user = await getUserDataFromApi(userId)
+        div = createPostPerUserHeader(user)
+
+    } catch (err) {
+        console.log(err + " Problem loading the The user information from Api")
+    }
+
+    try {
+        const posts = await getPostPerUserDataFromApi(userId)
+        let fragment = document.createDocumentFragment()
+        posts.forEach(post => {
+            fragment.appendChild(createLiPost(post))
+
+        })
+        let ul = div.children[0].children[1]
+        ul.appendChild(fragment)
+        routerView.innerHTML = div.innerHTML
+
+    } catch (err) {
+        console.log(err + " Problem loading the The posts per User from Api")
+    }
+}
