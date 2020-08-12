@@ -19,7 +19,17 @@ const prefixGithubPages = ``//local dev for othe any enviroment
 const routerView = document.querySelector("#router")
 const navAnchors = document.querySelectorAll(".link")
 
-
+const ajax = (url, queryString, method, responseType = "json") => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest
+        xhr.responseType = responseType
+        xhr.open(method, `${url}${queryString}`)
+        xhr.addEventListener("load", () => {
+            resolve(xhr.response)
+        })
+        xhr.send()
+    })
+}
 
 let getAllUserFromApi = () => {
     return new Promise((resolve, reject) => {
