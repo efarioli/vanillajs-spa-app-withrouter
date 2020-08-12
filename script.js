@@ -77,11 +77,11 @@ const createUserArticleHTML = (user) => {
     article.innerHTML =
         `<img src="" alt=""><h1></h1><h2></h2>
    <a href="#">Ver Posteos de  </a>`
-   article.children[0].src = `./pic/${user.id}.jpg`
-   article.children[1].innerText = `${user.name}`
-   article.children[2].innerText = `${user.email}`
-   article.children[3].href = `/${prefixGithubPages}#posts?userId=${user.id}`
-   article.children[3].innerText = `Ver Posteos de ${user.name}`
+    article.children[0].src = `./pic/${user.id}.jpg`
+    article.children[1].innerText = `${user.name}`
+    article.children[2].innerText = `${user.email}`
+    article.children[3].href = `/${prefixGithubPages}#posts?userId=${user.id}`
+    article.children[3].innerText = `Ver Posteos de ${user.name}`
     return article;
 }
 
@@ -132,9 +132,12 @@ const createLiPost = (post) => {
     let li = document.createElement("li")
     li.classList.add("table-row")
     li.innerHTML =
-        `<div class="col col-1" data-label="Post Id">${post.id}</div>
-        <div class="col col-2" data-label="Title">${post.title}</div>
-        <div class="col col-3" data-label="Post Body">${post.body}</div>`
+        `<div class="col col-1" data-label="Post Id"></div>
+        <div class="col col-2" data-label="Title"></div>
+        <div class="col col-3" data-label="Post Body"></div>`
+    li.children[0].innerText = post.id
+    li.children[1].innerText = post.title
+    li.children[2].innerText = post.body
     return li
 }
 
