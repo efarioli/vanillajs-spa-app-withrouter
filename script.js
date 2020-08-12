@@ -71,13 +71,17 @@ let getUserDataFromApi = (userId) => {
 }
 
 const createUserArticleHTML = (user) => {
-    //create an HTML element that represents an user
+    //create an HTML element (article) that represents an user
     const article = document.createElement("article")
     article.classList.add("card")
     article.innerHTML =
-        `<img src="./pic/${user.id}.jpg" alt="">
-   <h1>${user.name}</h1><h2>${user.email}</h2>
-   <a href="/${prefixGithubPages}#posts?userId=${user.id}">Ver Posteos de ${user.name} </a>`
+        `<img src="" alt=""><h1></h1><h2></h2>
+   <a href="#">Ver Posteos de  </a>`
+   article.children[0].src = `./pic/${user.id}.jpg`
+   article.children[1].innerText = `${user.name}`
+   article.children[2].innerText = `${user.email}`
+   article.children[3].href = `/${prefixGithubPages}#posts?userId=${user.id}`
+   article.children[3].innerText = `Ver Posteos de ${user.name}`
     return article;
 }
 
