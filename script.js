@@ -17,6 +17,8 @@ const url = "https://jsonplaceholder.typicode.com"
 //const prefixGithubPages = `vanillajs-spa-app-withrouter/` //the correct setup for githubpages
 const prefixGithubPages = ``//local dev for othe any enviroment
 const routerView = document.querySelector("#router")
+const NavAnchors = document.querySelectorAll(".link")
+
 
 
 let getAllUserFromApi = () => {
@@ -246,9 +248,8 @@ const onRouteChanged = () => {
             break;
     }
 
-    const links = document.querySelectorAll(".link")
-    links.forEach(element => {
-        if (element.classList.contains("active")) element.classList.remove("active")
+    navAnchors.forEach(anchor => {
+        if (anchor.classList.contains("active")) anchor.classList.remove("active")
     });
     let hashIdForActive = hash.split("?")[0]
 
@@ -261,7 +262,6 @@ const onRouteChanged = () => {
 }
 
 window.addEventListener("hashchange", onRouteChanged)
-window.addEventListener("popstate", onRouteChanged)
 
 
 window.addEventListener("load", () => {
@@ -277,11 +277,10 @@ window.addEventListener("load", () => {
     onRouteChanged()
 })
 
-let anchors = document.querySelectorAll("a")
 
-anchors.forEach(element => {
+navAnchors.forEach(anchor => {
     //anchors or links
-    element.addEventListener("click", e => {
+    anchor.addEventListener("click", e => {
         e.stopPropagation()
         e.preventDefault()
         let flag = window.location.href.toLowerCase().includes("index")
