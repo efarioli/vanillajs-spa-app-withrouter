@@ -14,8 +14,9 @@
  */
 const url = "https://jsonplaceholder.typicode.com"
 
-const prefixGithubPages = `vanillajs-spa-app-withrouter/`
-// const prefixGithubPages = `javascript-router/`
+ const prefixGithubPages = `vanillajs-spa-app-withrouter/` //the correct setup for githubpages
+// const prefixGithubPages = `javascript-router/` //simulate enviroment github pages in local dev
+// const prefixGithubPages = ``//local dev for othe any enviroment
 
 let getAllUserFromApi = () => {
     return new Promise((resolve, reject) => {
@@ -157,8 +158,15 @@ async function doCreateUserView(routerView) {
 
 async function doCreateViewPostsPerUser(routerView, userId) {
     let div
+    let flag = false
     try {
         const user = await getUserDataFromApi(userId)
+        console.log((typeof user.id) === "undefined")
+        if((typeof user.id) === "undefined") {
+            routerView.innerHTML = "<h1>404 - Page Not Found</h1>"
+            flag = true
+            return
+        }
         div = createPostPerUserHeader(user)
 
     } catch (err) {
@@ -166,6 +174,10 @@ async function doCreateViewPostsPerUser(routerView, userId) {
     }
 
     try {
+        if(flag){
+            return
+        }
+        
         const posts = await getPostPerUserDataFromApi(userId)
         let fragment = document.createDocumentFragment()
         posts.forEach(post => {
@@ -251,7 +263,6 @@ const onRouteChanged = () => {
 
 window.addEventListener("hashchange", onRouteChanged)
 
-window.addEventListener('popstate', onRouteChanged)
 
 window.addEventListener("load", () => {
     console.log("loadin....")
