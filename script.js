@@ -84,8 +84,10 @@ const createUserArticleHTML = (user) => {
 const createUserH2HTML = (user) => {
     //create an H2 element that represents an user - Username and thumbnail picture
     const h2 = document.createElement("h2")
-    h2.innerHTML =
-        `Posts for user: ${user.name}<span><img src="./pic/${user.id}.jpg"  alt=""/></span>`
+    h2.innerHTML = `<span>Posts for user:</span><span><img src=""  alt=""/></span>`
+    console.log(h2.childNodes[1])
+    h2.children[0].innerText = `Posts for user: ${user.name}`
+    h2.children[1].children[0].src = `./pic/${user.id}.jpg`
     return h2;
 }
 
@@ -252,7 +254,7 @@ const onRouteChanged = () => {
         if (`#${anchor.href.split("#")[anchor.href.split("#").length - 1]}` === hashIdForActive) {
             anchor.classList.add("active")
         }
-    })    
+    })
 }
 
 window.addEventListener("hashchange", onRouteChanged)
