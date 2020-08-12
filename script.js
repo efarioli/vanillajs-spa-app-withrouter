@@ -164,7 +164,7 @@ async function doCreateViewPostsPerUser(routerView, userId) {
     let flag = false
     try {
         const user = await getUserDataFromApi(userId)
-        console.log((typeof user.id) === "undefined")
+        //addressing the problem when the APi do not return any info because the user does not exist
         if ((typeof user.id) === "undefined") {
             routerView.innerHTML = "<h1>404 - Page Not Found</h1>"
             flag = true
@@ -177,9 +177,8 @@ async function doCreateViewPostsPerUser(routerView, userId) {
     }
 
     try {
-        if (flag) {
-            return
-        }
+        //addressing the problem when the APi do not return any info because the user does not exist
+        if (flag) return
 
         const posts = await getPostPerUserDataFromApi(userId)
         let fragment = document.createDocumentFragment()
