@@ -14,9 +14,10 @@
  */
 const url = "https://jsonplaceholder.typicode.com"
 
- const prefixGithubPages = `vanillajs-spa-app-withrouter/` //the correct setup for githubpages
-// const prefixGithubPages = `javascript-router/` //simulate enviroment github pages in local dev
-// const prefixGithubPages = ``//local dev for othe any enviroment
+//const prefixGithubPages = `vanillajs-spa-app-withrouter/` //the correct setup for githubpages
+const prefixGithubPages = ``//local dev for othe any enviroment
+const routerView = document.querySelector("#router")
+
 
 let getAllUserFromApi = () => {
     return new Promise((resolve, reject) => {
@@ -162,7 +163,7 @@ async function doCreateViewPostsPerUser(routerView, userId) {
     try {
         const user = await getUserDataFromApi(userId)
         console.log((typeof user.id) === "undefined")
-        if((typeof user.id) === "undefined") {
+        if ((typeof user.id) === "undefined") {
             routerView.innerHTML = "<h1>404 - Page Not Found</h1>"
             flag = true
             return
@@ -174,10 +175,10 @@ async function doCreateViewPostsPerUser(routerView, userId) {
     }
 
     try {
-        if(flag){
+        if (flag) {
             return
         }
-        
+
         const posts = await getPostPerUserDataFromApi(userId)
         let fragment = document.createDocumentFragment()
         posts.forEach(post => {
@@ -214,11 +215,9 @@ async function doCreateAllPostsView(routerView) {
 }
 
 const onRouteChanged = () => {
-
     window.location.href.replace("index.html", "")
 
     const hash = window.location.hash;
-    const routerView = document.querySelector("#router")
 
     if (!(routerView instanceof HTMLElement)) {
         throw new ReferenceError("No router view element available for rendering");
@@ -262,6 +261,7 @@ const onRouteChanged = () => {
 }
 
 window.addEventListener("hashchange", onRouteChanged)
+window.addEventListener("popstate", onRouteChanged)
 
 
 window.addEventListener("load", () => {
@@ -273,10 +273,7 @@ window.addEventListener("load", () => {
         history.pushState({
             id: null
         }, null, `${window.location.origin}/${prefixGithubPages}#home`);
-
-
     }
-
     onRouteChanged()
 })
 
@@ -293,11 +290,10 @@ anchors.forEach(element => {
             history.pushState({
                 id: null
             }, null, `https://${window.location.host}/${prefixGithubPages}` + e.target.hash);
-            onRouteChanged()
 
         } else {
             window.location.hash = e.target.hash.replace("#", "")
         }
-
+        onRouteChanged()
     })
 })
