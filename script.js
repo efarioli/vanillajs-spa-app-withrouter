@@ -14,8 +14,8 @@
  */
 const url = "https://jsonplaceholder.typicode.com"
 
-//const prefixGithubPages = `vanillajs-spa-app-withrouter/` //the correct setup for githubpages
-const prefixGithubPages = ``//local dev for othe any enviroment
+const prefixGithubPages = `vanillajs-spa-app-withrouter/` //the correct setup for githubpages
+// const prefixGithubPages = ``//local dev for othe any enviroment
 const routerView = document.querySelector("#router")
 const navAnchors = document.querySelectorAll(".link")
 
@@ -24,55 +24,6 @@ const ajax = (url, queryString, method, responseType = "json") => {
         const xhr = new XMLHttpRequest
         xhr.responseType = responseType
         xhr.open(method, `${url}${queryString}`)
-        xhr.addEventListener("load", () => {
-            resolve(xhr.response)
-        })
-        xhr.send()
-    })
-}
-
-let getAllUserFromApi = () => {
-    return new Promise((resolve, reject) => {
-        const url = "https://jsonplaceholder.typicode.com"
-        const xhr = new XMLHttpRequest
-        xhr.responseType = "json"
-        xhr.open("GET", `${url}/users`)
-        xhr.addEventListener("load", () => {
-            resolve(xhr.response)
-        })
-        xhr.send()
-    })
-}
-
-let getPostPerUserDataFromApi = (userId) => {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest
-        xhr.responseType = "json"
-        xhr.open("GET", `${url}/posts?userId=${userId}`)
-        xhr.addEventListener("load", () => {
-            resolve(xhr.response)
-        })
-        xhr.send()
-    })
-}
-
-let getAllPostDataFromApi = () => {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest
-        xhr.responseType = "json"
-        xhr.open("GET", `${url}/posts`)
-        xhr.addEventListener("load", () => {
-            resolve(xhr.response)
-        })
-        xhr.send()
-    })
-}
-
-let getUserDataFromApi = (userId) => {
-    return new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest
-        xhr.responseType = "json"
-        xhr.open("GET", `${url}/users/${userId}`)
         xhr.addEventListener("load", () => {
             resolve(xhr.response)
         })
@@ -170,7 +121,8 @@ const createLiPostExt = (post) => {
 
 async function doCreateUserView(routerView) {
     try {
-        const users = await getAllUserFromApi()
+        //get all users
+        const users = await ajax(url,`/users`, "get")
         routerView.innerHTML = ""
 
         let articles = document.createDocumentFragment()
@@ -188,7 +140,8 @@ async function doCreateViewPostsPerUser(routerView, userId) {
     let div
     let flag = false
     try {
-        const user = await getUserDataFromApi(userId)
+        //get user data
+        const user = await ajax(url, `/users/${userId}`, "get")
         //addressing the problem when the APi do not return any info because the user does not exist
         if ((typeof user.id) === "undefined") {
             routerView.innerHTML = "<h1>404 - Page Not Found</h1>"
@@ -204,8 +157,8 @@ async function doCreateViewPostsPerUser(routerView, userId) {
     try {
         //addressing the problem when the APi do not return any info because the user does not exist
         if (flag) return
-
-        const posts = await getPostPerUserDataFromApi(userId)
+        //get all the post for a particular user
+        const posts = await ajax(url,`/posts?userId=${userId}`, "get")
         let fragment = document.createDocumentFragment()
         posts.forEach(post => {
             fragment.appendChild(createLiPost(post))
@@ -223,7 +176,7 @@ async function doCreateAllPostsView(routerView) {
     let div
     try {
 
-        const posts = await getAllPostDataFromApi()
+        const posts = await ajax(url,`/posts`, "get")
 
         let fragment = document.createDocumentFragment()
         posts.forEach(post => {
