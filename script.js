@@ -216,7 +216,6 @@ async function doCreateAllPostsView(routerView) {
 }
 
 const onRouteChanged = () => {
-    window.location.href.replace("index.html", "")
 
     const hash = window.location.hash;
 
