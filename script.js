@@ -128,7 +128,7 @@ const createViewAllPostHeader = () => {
     return div
 }
 
-const replaceInLi = () => {
+const replaceInLi = (li, post) => {
     li.children[0].innerText = post.id
     li.children[1].innerText = post.title
     li.children[2].innerText = post.body
@@ -141,9 +141,7 @@ const createLiPost = (post) => {
         `<div class="col col-1" data-label="Post Id"></div>
         <div class="col col-2" data-label="Title"></div>
         <div class="col col-3" data-label="Post Body"></div>`
-    li.children[0].innerText = post.id
-    li.children[1].innerText = post.title
-    li.children[2].innerText = post.body
+    replaceInLi(li, post)
     return li
 }
 
@@ -155,9 +153,7 @@ const createLiPostExt = (post) => {
         <div class="col col-2v2" data-label="Title"></div>
         <div class="col col-3v2" data-label="Post Body"></div>
         <div class="col col-4v2" data-label="Post UserId"></div>`
-    li.children[0].innerText = post.id
-    li.children[1].innerText = post.title
-    li.children[2].innerText = post.body
+    replaceInLi(li, post)
     li.children[3].innerText = post.userId
     return li
 }
