@@ -45,8 +45,8 @@ body footer {
   text-align: center;
 }
 .active {
-  outline: 2px solid red;
-  padding: 5px;
+  width: 100%;
+  background-color: rgba(20, 66, 40, 0.3);
 }
 
 .card {
@@ -172,11 +172,38 @@ div > h2 > span > img {
   flex-basis: 8%;
 }
 
-[class^="col"] {
+[class^='col'] {
   margin-right: 10px;
   border-right: 1px solid silver;
 }
 
-[class^="col"]:last-child {
+[class^='col']:last-child {
   border-right: 0;
+}
+header {
+  padding: 0;
+  margin: 0;
+  boder: 0;
+}
+nav {
+  height: 100%;
+  width: 40%;
+}
+nav ul {
+  height: 100%;
+  display: flex;
+  align-content: stretch;
+}
+nav ul li {
+  display: flex;
+  align-content: stretch;
+
+  flex-basis: 25%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: 100%;
+}
+nav ul li a {
+  align-self: center;
 }
